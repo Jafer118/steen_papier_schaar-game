@@ -1,102 +1,76 @@
-// 1. Alle elementen ophalen uit de HTML
+// 1. Constanten voor de tekstvakken (v1)
 const computerOutput = document.querySelector("#computer");
 const humanOutput = document.querySelector("#human");
 const resultOutput = document.querySelector("#result");
-const countdownDisplay = document.querySelector("#countdown");
 const userScoreDisplay = document.querySelector("#user-score");
-const computerScoreDisplay = document.querySelector("#computer-score");
-const streakDisplay = document.querySelector("#streak");
-const roundDisplay = document.querySelector("#round-count");
+const highScoreDisplay = document.querySelector("#high-score");
 
-// 2. Variabelen voor de standen en keuzes
-let userScore = 0;
-let computerScore = 0;
-let roundCount = 1;
-let streak = 0;
+// 2. Variabelen voor de keuzes en scores
 let humanChoice = "";
 let computerChoice = "";
+let userScore = 0;
+let highScore = 0;
 
-// 3. Functie voor de computer keuze (Houdt de SWITCH uit de vorige opdracht!)
+// 3. Functie voor de computer keuze (DE SWITCH OPDRACHT)
 function makeComputerChoice() {
+    // Genereer getal 1, 2 of 3
     const randomNumber = Math.floor(Math.random() * 3) + 1;
+    
+    // Switch statement om het getal om te zetten naar tekst
     switch (randomNumber) {
-        case 1: computerChoice = 'steen'; break;
-        case 2: computerChoice = 'schaar'; break;
-        case 3: computerChoice = 'papier'; break;
+        case 1:
+            computerChoice = 'steen';
+            break;
+        case 2:
+            computerChoice = 'schaar';
+            break;
+        case 3:
+            computerChoice = 'papier';
+            break;
     }
+    
+    // Laat de keuze van de computer zien
     computerOutput.innerHTML = computerChoice;
 }
 
-// 4. Winnaar bepalen + Score & Streaks bijwerken
+// 4. Winnaar bepalen en Highscore bijwerken
 function getResult() {
-    // Verwijder oude animatie-classes zodat we ze opnieuw kunnen toevoegen
-    resultOutput.classList.remove('pop-in');
-    void resultOutput.offsetWidth; // Trucje om de animatie te herstarten
-
     if (humanChoice === computerChoice) {
-        resultOutput.innerHTML = "Gelijkspel! 😐";
-        streak = 0; // Bij gelijkspel gaat je streak weg
+        resultOutput.innerHTML = "Gelijkspel!";
     } else if (
         (humanChoice === 'steen' && computerChoice === 'schaar') ||
         (humanChoice === 'papier' && computerChoice === 'steen') ||
         (humanChoice === 'schaar' && computerChoice === 'papier')
     ) {
-        resultOutput.innerHTML = "Je wint! 🏆";
-        userScore++;
-        streak++; // Je wint, dus streak gaat omhoog!
-        document.getElementById("win-sound").play(); // Speel geluid
+        resultOutput.innerHTML = "Je wint!";
+        userScore++; // Punt erbij voor jou
+        
+        // Check of dit je nieuwe record is
+        if (userScore > highScore) {
+            highScore = userScore;
+            highScoreDisplay.innerHTML = highScore;
+        }
     } else {
-        resultOutput.innerHTML = "Computer wint! 🤖";
-        computerScore++;
-        streak = 0; // Verloren, dus streak naar 0
+        resultOutput.innerHTML = "Computer wint!";
+        userScore = 0; // Reset score als je verliest (optioneel, maar maakt het een echte game)
     }
 
-    // Update de teksten op het scherm
-    resultOutput.classList.add('pop-in');
     userScoreDisplay.innerHTML = userScore;
-    computerScoreDisplay.innerHTML = computerScore;
-    streakDisplay.innerHTML = streak;
-    
-    // Ronde gaat pas omhoog NA de uitslag
-    roundCount++;
-    roundDisplay.innerHTML = roundCount;
 }
 
-// 5. De centrale handler (Aangepast voor de Countdown/Uitstellen uitslag)
+// 5. De centrale handler functie (v2)
 function handlePlayerChoice(event) {
-    document.getElementById("click-sound").play();
-    
-    // Pak de ID van de geklikte div (steen, papier of schaar)
-    humanChoice = event.currentTarget.id;
+    // Pak de ID van de button waar je op klikt
+    humanChoice = event.target.id;
     humanOutput.innerHTML = humanChoice;
-
-    // Reset de uitslag-teksten voor de nieuwe ronde
-    resultOutput.innerHTML = "";
-    computerOutput.innerHTML = "?";
     
-    // COUNTDOWN: Uitslag 1,5 seconde uitstellen (3 stappen van 0.5s)
-    let timer = 3;
-    countdownDisplay.innerHTML = timer;
-
-    const interval = setInterval(() => {
-        timer--;
-        if (timer > 0) {
-            countdownDisplay.innerHTML = timer;
-        } else {
-            clearInterval(interval); // Stop de timer
-            countdownDisplay.innerHTML = ""; // Haal "1" weg
-            makeComputerChoice(); // Computer kiest nu pas
-            getResult(); // Winnaar bepalen
-        }
-    }, 500); // 500ms = een halve seconde per stap
+    // Voer de andere functies uit
+    makeComputerChoice();
+    getResult();
 }
 
-// 6. De Event Listeners (Houdt de querySelectorAll uit de vorige opdracht!)
-document.querySelectorAll('.choice-btn').forEach(button => {
+// 6. De Event Listener voor alle buttons (DE 1 CLICK HANDLER OPDRACHT)
+// We zoeken alle buttons en geven ze allemaal de 'handlePlayerChoice' functie
+document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', handlePlayerChoice);
-});
-
-// Reset knop: Herlaadt de hele pagina (lekker makkelijk)
-document.querySelector("#reset-btn").addEventListener('click', () => {
-    location.reload();
 });

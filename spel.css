@@ -1,93 +1,19 @@
-/* 1. De basis van de pagina */
+/* Basis styling zoals in je eerdere screenshots */
 body {
     font-family: sans-serif;
     text-align: center;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
+    padding-top: 50px;
+    background-color: #f9f9f9;
 }
 
-/* 2. De witte container waar alles in zit */
-.game-container {
-    background: white;
-    max-width: 600px;
-    margin: 0 auto; /* Zorgt dat de container in het midden staat */
-    padding: 20px;
-    border-radius: 15px; /* Ronde hoekjes */
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-}
-
-/* 3. Het scorebord bovenin */
-.scoreboard {
-    display: flex;
-    justify-content: space-around; /* Verdeelt de scores netjes */
-    font-size: 1.2rem;
-    background: #eee;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-/* 4. De plek waar de keuzes en de uitslag verschijnen */
-.display-area {
-    margin: 30px 0;
-}
-
-#countdown {
-    font-size: 3rem;
-    color: #e74c3c; /* Rood voor de spanning */
-    height: 50px;
-}
-
-/* 5. De knoppen met afbeeldingen */
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px; /* Ruimte tussen de knoppen */
-}
-
-.choice-btn {
-    cursor: pointer;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    transition: 0.2s; /* Zorgt dat het poppen soepel gaat */
-}
-
-/* Als je met de muis over een knop gaat */
-.choice-btn:hover {
-    transform: scale(1.1); /* Maakt de knop iets groter */
-    border-color: #3498db; 
-}
-
-.choice-btn img {
-    width: 70px; /* Grootte van je steen/papier/schaar plaatjes */
-    height: 70px;
-}
-
-/* 6. De tekst van de uitslag (Je wint / Computer wint) */
-#result {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-/* 7. De pop-in animatie */
-.pop-in {
-    animation: pop 0.3s ease-out;
-}
-
-@keyframes pop {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-/* 8. De reset knop onderaan */
-#reset-btn {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
+button {
     padding: 10px 20px;
-    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    margin-top: 20px;
+    margin: 5px;
+}
+
+#result {
+    font-weight: bold;
+    color: #333;
 }
