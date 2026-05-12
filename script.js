@@ -1,51 +1,53 @@
-// 1. Alle constanten voor de tekstvakken
+// 1. Constanten voor tekstvakken en score
 const computerOutput = document.querySelector("#computer");
 const humanOutput = document.querySelector("#human");
 const resultOutput = document.querySelector("#result");
+const userScoreDisplay = document.querySelector("#user-score");
+const computerScoreDisplay = document.querySelector("#computer-score");
 
-// 2. Variabelen voor de keuzes
+// 2. Variabelen voor keuzes en scores
 let humanChoice = "";
 let computerChoice = "";
+let userScore = 0;
+let computerScore = 0;
 
-// 3. De testregel uit de opdracht
-humanOutput.innerHTML = "Jouw keuze komt hier, maak je keuze!";
+// 3. Starttekst
+humanOutput.innerHTML = "Maak je keuze om te beginnen!";
 
-// 4. DEZE IS NU AANGEPAST: Functie voor de computer keuze met een SWITCH
-// Zinnige comment: Gebruikt een switch om het getal 1, 2 of 3 om te zetten naar een tekst-keuze
+// 4. Computer keuze met Switch
 function makeComputerChoice() {
     const randomNumber = Math.floor(Math.random() * 3) + 1;
-    
     switch (randomNumber) {
-        case 1:
-            computerChoice = 'steen';
-            break;
-        case 2:
-            computerChoice = 'schaar';
-            break;
-        case 3:
-            computerChoice = 'papier';
-            break;
+        case 1: computerChoice = 'steen'; break;
+        case 2: computerChoice = 'schaar'; break;
+        case 3: computerChoice = 'papier'; break;
     }
-    
     computerOutput.innerHTML = computerChoice;
 }
 
-// 5. Functie om de winnaar te bepalen
+// 5. Winnaar bepalen + Score bijwerken
+// Zinnige comment: Deze functie checkt wie wint en hoogt de score op
 function getResult() {
     if (humanChoice === computerChoice) {
-        resultOutput.innerHTML = "Gelijkspel!";
+        resultOutput.innerHTML = "Gelijkspel! 😐";
     } else if (
         (humanChoice === 'steen' && computerChoice === 'schaar') ||
         (humanChoice === 'papier' && computerChoice === 'steen') ||
         (humanChoice === 'schaar' && computerChoice === 'papier')
     ) {
-        resultOutput.innerHTML = "Je wint!";
+        resultOutput.innerHTML = "Je wint! 🏆";
+        userScore++; // Doe er 1 punt bij voor de mens
     } else {
-        resultOutput.innerHTML = "Computer wint!";
+        resultOutput.innerHTML = "Computer wint! 🤖";
+        computerScore++; // Doe er 1 punt bij voor de computer
     }
+
+    // Update de cijfers op het scherm
+    userScoreDisplay.innerHTML = userScore;
+    computerScoreDisplay.innerHTML = computerScore;
 }
 
-// 6. De centrale 'handler' functie
+// 6. Centrale handler
 function handlePlayerChoice(event) {
     humanChoice = event.target.id;
     humanOutput.innerHTML = humanChoice;
@@ -53,7 +55,7 @@ function handlePlayerChoice(event) {
     getResult();
 }
 
-// 7. De event listener voor alle buttons (v2 stijl)
+// 7. Eén event listener voor alle buttons
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', handlePlayerChoice);
 });
