@@ -14,7 +14,8 @@ let computerChoice = "";
 // 3. De testregel uit de opdracht
 humanOutput.innerHTML = "Jouw keuze komt hier, maak je keuze!";
 
-// 4. Functie om de winnaar te bepalen (de vergelijking)
+// 4. Functie om de winnaar te bepalen
+// Zinnige comment: Deze functie vergelijkt de keuzes en schrijft de uitslag naar de HTML
 function getResult() {
     if (humanChoice === computerChoice) {
         resultOutput.innerHTML = "Gelijkspel!";
@@ -29,29 +30,7 @@ function getResult() {
     }
 }
 
-// 5. De click event handlers
-steenBtn.addEventListener('click', function(event) {
-    humanChoice = event.target.id;
-    humanOutput.innerHTML = humanChoice;
-    makeComputerChoice();
-    getResult();
-});
-
-papierBtn.addEventListener('click', function(event) {
-    humanChoice = event.target.id;
-    humanOutput.innerHTML = humanChoice;
-    makeComputerChoice();
-    getResult();
-});
-
-schaarBtn.addEventListener('click', function(event) {
-    humanChoice = event.target.id;
-    humanOutput.innerHTML = humanChoice;
-    makeComputerChoice();
-    getResult();
-});
-
-// 6. Functie voor de computer keuze (uit de vorige stap)
+// 5. Functie voor de computer keuze
 function makeComputerChoice() {
     const randomNumber = Math.floor(Math.random() * 3) + 1;
     if (randomNumber === 1) computerChoice = 'steen';
@@ -59,3 +38,17 @@ function makeComputerChoice() {
     if (randomNumber === 3) computerChoice = 'papier';
     computerOutput.innerHTML = computerChoice;
 }
+
+// 6. NIEUW IN V2: De centrale 'handler' functie
+// Zinnige comment: Deze functie voorkomt dubbele code door alle knop-acties centraal te verwerken
+function handlePlayerChoice(event) {
+    humanChoice = event.target.id;      // Pak het ID van de geklikte knop
+    humanOutput.innerHTML = humanChoice; // Toon de keuze op het scherm
+    makeComputerChoice();               // Laat de computer kiezen
+    getResult();                        // Bepaal de winnaar
+}
+
+// 7. De event listeners (nu veel korter!)
+steenBtn.addEventListener('click', handlePlayerChoice);
+papierBtn.addEventListener('click', handlePlayerChoice);
+schaarBtn.addEventListener('click', handlePlayerChoice);
