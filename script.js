@@ -10,17 +10,27 @@ let computerChoice = "";
 // 3. De testregel uit de opdracht
 humanOutput.innerHTML = "Jouw keuze komt hier, maak je keuze!";
 
-// 4. Functie voor de computer keuze
+// 4. DEZE IS NU AANGEPAST: Functie voor de computer keuze met een SWITCH
+// Zinnige comment: Gebruikt een switch om het getal 1, 2 of 3 om te zetten naar een tekst-keuze
 function makeComputerChoice() {
     const randomNumber = Math.floor(Math.random() * 3) + 1;
-    if (randomNumber === 1) computerChoice = 'steen';
-    if (randomNumber === 2) computerChoice = 'schaar';
-    if (randomNumber === 3) computerChoice = 'papier';
+    
+    switch (randomNumber) {
+        case 1:
+            computerChoice = 'steen';
+            break;
+        case 2:
+            computerChoice = 'schaar';
+            break;
+        case 3:
+            computerChoice = 'papier';
+            break;
+    }
+    
     computerOutput.innerHTML = computerChoice;
 }
 
 // 5. Functie om de winnaar te bepalen
-// Zinnige comment: Vergelijkt keuzes en toont de uitslag in de HTML
 function getResult() {
     if (humanChoice === computerChoice) {
         resultOutput.innerHTML = "Gelijkspel!";
@@ -36,16 +46,14 @@ function getResult() {
 }
 
 // 6. De centrale 'handler' functie
-// Zinnige comment: Verwerkt de klik, stelt de keuze in en start de computer-ronde
 function handlePlayerChoice(event) {
-    humanChoice = event.target.id;      // Pak het ID van de geklikte knop
+    humanChoice = event.target.id;
     humanOutput.innerHTML = humanChoice;
     makeComputerChoice();
     getResult();
 }
 
-// 7. DE V2 UPDATE: Eén listener voor alle buttons
-// Zinnige comment: Zoekt alle buttons en koppelt ze in één keer aan de handler
+// 7. De event listener voor alle buttons (v2 stijl)
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', handlePlayerChoice);
 });
