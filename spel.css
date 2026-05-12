@@ -1,14 +1,127 @@
+/* 1. Algemene styling van de pagina */
 body {
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
     padding: 20px;
 }
 
-h2 {
+/* 2. Container voor het hele spel */
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* 3. Scorebord styling */
+.scoreboard {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background: #eef2f7;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+#streak {
+    color: #e67e22;
+}
+
+/* 4. Display gedeelte (keuzes en countdown) */
+.display-area {
+    min-height: 200px;
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px dashed #ddd;
+    border-radius: 15px;
+}
+
+.choices {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5rem;
+}
+
+#countdown {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ff4d4d;
+    height: 60px;
     margin: 10px 0;
 }
 
-button {
-    margin-top: 20px;
-    padding: 5px 10px;
+/* 5. De knoppen met de afbeeldingen */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.choice-btn {
     cursor: pointer;
+    transition: all 0.3s ease;
+    border: 4px solid #eee;
+    border-radius: 20px;
+    padding: 15px;
+    background: white;
+}
+
+.choice-btn:hover {
+    transform: scale(1.1) translateY(-5px);
+    border-color: #3498db;
+    background-color: #ebf5fb;
+}
+
+.choice-btn img {
+    width: 80px;
+    height: 80px;
+}
+
+/* 6. Uitslag en Animaties */
+#result {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    height: 50px;
+}
+
+.pop-in {
+    animation: pop 0.4s ease-out forwards;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Kleuren voor winst/verlies */
+.win { color: #27ae60; }
+.lose { color: #c0392b; }
+.tie { color: #f39c12; }
+
+/* 7. Reset knop styling */
+#reset-btn {
+    margin-top: 30px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#reset-btn:hover {
+    background-color: #c0392b;
 }

@@ -2,20 +2,40 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Steen Papier Schaar</title>
+    <title>Steen Papier Schaar - Ultimate</title>
     <link rel="stylesheet" href="spel.css">
 </head>
 <body>
+    <div class="game-container">
+        <h1>Ronde: <span id="round-count">1</span></h1>
+        
+        <div class="scoreboard">
+            <p>Jij: <span id="user-score">0</span> (Streak: <span id="streak">0</span>)</p>
+            <p>Computer: <span id="computer-score">0</span></p>
+        </div>
 
-    <h2>Computer: <span id="computer"></span></h2>
-    <h2>Jouw keuze: <span id="human"></span></h2>
-    <h2>Uitkomst: <span id="result"></span></h2>
+        <div class="display-area">
+            <h2 id="status">Maak je keuze...</h2>
+            <div id="countdown" style="font-size: 3rem; font-weight: bold; color: #ff4d4d;"></div>
+            <div class="choices">
+                <p>Jij: <span id="human">?</span></p>
+                <p>Computer: <span id="computer">?</span></p>
+            </div>
+            <h2 id="result"></h2>
+        </div>
 
-    <p>Jij: <span id="user-score">0</span> | Computer: <span id="computer-score">0</span></p>
+        <div class="button-container">
+            <div class="choice-btn" id="steen"><img src="https://img.icons8.com/color/96/rock.png" alt="Steen"></div>
+            <div class="choice-btn" id="papier"><img src="https://img.icons8.com/color/96/paper.png" alt="Papier"></div>
+            <div class="choice-btn" id="schaar"><img src="https://img.icons8.com/color/96/scissors.png" alt="Schaar"></div>
+        </div>
 
-    <button id="steen">Steen</button>
-    <button id="papier">Papier</button>
-    <button id="schaar">Schaar</button>
+        <br>
+        <button id="reset-btn">Reset Game</button>
+    </div>
+
+    <audio id="win-sound" src="https://www.myinstants.com/media/sounds/win.mp3"></audio>
+    <audio id="click-sound" src="https://www.myinstants.com/media/sounds/click.mp3"></audio>
 
     <script src="script.js"></script>
 </body>

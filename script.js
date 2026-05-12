@@ -1,61 +1,85 @@
-// 1. Constanten voor tekstvakken en score
 const computerOutput = document.querySelector("#computer");
 const humanOutput = document.querySelector("#human");
 const resultOutput = document.querySelector("#result");
-const userScoreDisplay = document.querySelector("#user-score");
-const computerScoreDisplay = document.querySelector("#computer-score");
+const countdownDisplay = document.querySelector("#countdown");
+const streakDisplay = document.querySelector("#streak");
+const statusText = document.querySelector("#status");
 
-// 2. Variabelen voor keuzes en scores
-let humanChoice = "";
-let computerChoice = "";
-let userScore = 0;
-let computerScore = 0;
+let userScore = 0, computerScore = 0, roundCount = 1, streak = 0;
+let humanChoice = "", computerChoice = "";
 
-// 3. Starttekst
-humanOutput.innerHTML = "Maak je keuze om te beginnen!";
+// Geluiden inladen
+const winSound = document.getElementById("win-sound");
+const clickSound = document.getElementById("click-sound");
 
-// 4. Computer keuze met Switch
 function makeComputerChoice() {
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
-    switch (randomNumber) {
-        case 1: computerChoice = 'steen'; break;
-        case 2: computerChoice = 'schaar'; break;
-        case 3: computerChoice = 'papier'; break;
-    }
-    computerOutput.innerHTML = computerChoice;
+    const choices = ['steen', 'schaar', 'papier'];
+    computerChoice = choices[Math.floor(Math.random() * 3)];
 }
 
-// 5. Winnaar bepalen + Score bijwerken
-// Zinnige comment: Deze functie checkt wie wint en hoogt de score op
 function getResult() {
+    resultOutput.classList.remove('pop-in');
+    void resultOutput.offsetWidth; // Reset animatie
+
+    let result = "";
     if (humanChoice === computerChoice) {
-        resultOutput.innerHTML = "Gelijkspel! 😐";
+        result = "Gelijkspel! 😐";
+        streak = 0; // Streak stopt
     } else if (
         (humanChoice === 'steen' && computerChoice === 'schaar') ||
         (humanChoice === 'papier' && computerChoice === 'steen') ||
         (humanChoice === 'schaar' && computerChoice === 'papier')
     ) {
-        resultOutput.innerHTML = "Je wint! 🏆";
-        userScore++; // Doe er 1 punt bij voor de mens
+        result = "Je wint! 🏆";
+        userScore++;
+        streak++;
+        winSound.play();
     } else {
-        resultOutput.innerHTML = "Computer wint! 🤖";
-        computerScore++; // Doe er 1 punt bij voor de computer
+        result = "Computer wint! 🤖";
+        computerScore++;
+        streak = 0; // Streak stopt
     }
 
-    // Update de cijfers op het scherm
-    userScoreDisplay.innerHTML = userScore;
-    computerScoreDisplay.innerHTML = computerScore;
+    // Update alles op het scherm
+    resultOutput.innerHTML = result;
+    resultOutput.classList.add('pop-in');
+    document.querySelector("#user-score").innerHTML = userScore;
+    document.querySelector("#computer-score").innerHTML = computerScore;
+    streakDisplay.innerHTML = streak;
+    computerOutput.innerHTML = computerChoice;
 }
 
-// 6. Centrale handler
 function handlePlayerChoice(event) {
-    humanChoice = event.target.id;
+    clickSound.play();
+    // Pak het ID van de div (ook als je op het plaatje klikt)
+    humanChoice = event.currentTarget.id;
     humanOutput.innerHTML = humanChoice;
-    makeComputerChoice();
-    getResult();
+    
+    // START COUNTDOWN (Uitslag verbergen)
+    statusText.innerHTML = "De computer denkt na...";
+    resultOutput.innerHTML = "";
+    computerOutput.innerHTML = "?";
+    let timer = 3;
+    countdownDisplay.innerHTML = timer;
+
+    const interval = setInterval(() => {
+        timer--;
+        if (timer > 0) {
+            countdownDisplay.innerHTML = timer;
+        } else {
+            clearInterval(interval);
+            countdownDisplay.innerHTML = "";
+            statusText.innerHTML = "Uitslag:";
+            makeComputerChoice();
+            getResult();
+        }
+    }, 500); // 500ms voor een snelle countdown
 }
 
-// 7. Eén event listener voor alle buttons
-document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', handlePlayerChoice);
+// Event listeners voor de image-divs
+document.querySelectorAll('.choice-btn').forEach(btn => {
+    btn.addEventListener('click', handlePlayerChoice);
 });
+
+// Reset knop
+document.querySelector("#reset-btn").addEventListener('click', () => location.reload());
