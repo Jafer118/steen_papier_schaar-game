@@ -1,127 +1,93 @@
-/* 1. Algemene styling van de pagina */
+/* 1. De basis van de pagina */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: sans-serif;
     text-align: center;
-    background-color: #f0f2f5;
-    color: #333;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
 }
 
-/* 2. Container voor het hele spel */
+/* 2. De witte container waar alles in zit */
 .game-container {
-    max-width: 800px;
-    margin: 0 auto;
     background: white;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 0 auto; /* Zorgt dat de container in het midden staat */
+    padding: 20px;
+    border-radius: 15px; /* Ronde hoekjes */
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
 }
 
-/* 3. Scorebord styling */
+/* 3. Het scorebord bovenin */
 .scoreboard {
     display: flex;
-    justify-content: center;
-    gap: 40px;
+    justify-content: space-around; /* Verdeelt de scores netjes */
     font-size: 1.2rem;
-    font-weight: bold;
-    background: #eef2f7;
-    padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 20px;
+    background: #eee;
+    padding: 10px;
+    border-radius: 10px;
 }
 
-#streak {
-    color: #e67e22;
-}
-
-/* 4. Display gedeelte (keuzes en countdown) */
+/* 4. De plek waar de keuzes en de uitslag verschijnen */
 .display-area {
-    min-height: 200px;
-    margin: 20px 0;
-    padding: 20px;
-    border: 2px dashed #ddd;
-    border-radius: 15px;
-}
-
-.choices {
-    display: flex;
-    justify-content: space-around;
-    font-size: 1.5rem;
+    margin: 30px 0;
 }
 
 #countdown {
-    font-size: 4rem;
-    font-weight: bold;
-    color: #ff4d4d;
-    height: 60px;
-    margin: 10px 0;
+    font-size: 3rem;
+    color: #e74c3c; /* Rood voor de spanning */
+    height: 50px;
 }
 
-/* 5. De knoppen met de afbeeldingen */
+/* 5. De knoppen met afbeeldingen */
 .button-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
+    gap: 15px; /* Ruimte tussen de knoppen */
 }
 
 .choice-btn {
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 4px solid #eee;
-    border-radius: 20px;
-    padding: 15px;
-    background: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    transition: 0.2s; /* Zorgt dat het poppen soepel gaat */
 }
 
+/* Als je met de muis over een knop gaat */
 .choice-btn:hover {
-    transform: scale(1.1) translateY(-5px);
-    border-color: #3498db;
-    background-color: #ebf5fb;
+    transform: scale(1.1); /* Maakt de knop iets groter */
+    border-color: #3498db; 
 }
 
 .choice-btn img {
-    width: 80px;
-    height: 80px;
+    width: 70px; /* Grootte van je steen/papier/schaar plaatjes */
+    height: 70px;
 }
 
-/* 6. Uitslag en Animaties */
+/* 6. De tekst van de uitslag (Je wint / Computer wint) */
 #result {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-top: 20px;
-    height: 50px;
 }
 
+/* 7. De pop-in animatie */
 .pop-in {
-    animation: pop 0.4s ease-out forwards;
+    animation: pop 0.3s ease-out;
 }
 
 @keyframes pop {
-    0% { transform: scale(0); opacity: 0; }
-    80% { transform: scale(1.2); opacity: 1; }
+    0% { transform: scale(0.5); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Kleuren voor winst/verlies */
-.win { color: #27ae60; }
-.lose { color: #c0392b; }
-.tie { color: #f39c12; }
-
-/* 7. Reset knop styling */
+/* 8. De reset knop onderaan */
 #reset-btn {
-    margin-top: 30px;
-    padding: 12px 25px;
-    font-size: 1rem;
     background-color: #e74c3c;
     color: white;
     border: none;
-    border-radius: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
-}
-
-#reset-btn:hover {
-    background-color: #c0392b;
+    margin-top: 20px;
 }
