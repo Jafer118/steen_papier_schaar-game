@@ -52,7 +52,7 @@ function getResult() {
         }
     } else {
         resultOutput.innerHTML = "Computer wint!";
-        userScore = 0; // Reset score als je verliest (optioneel, maar maakt het een echte game)
+        userScore = 0; // Reset score als je verliest 
     }
 
     userScoreDisplay.innerHTML = userScore;
