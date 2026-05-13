@@ -2,22 +2,23 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Steen Papier Schaar</title>
+    <title>Steen Papier Schaar - Confetti Edition</title>
     <link rel="stylesheet" href="spel.css">
+    <!-- Voeg dit script toe voor de confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+    <div class="game-container">
+        <h2>Computer: <span id="computer"></span></h2>
+        <h2>Jouw keuze: <span id="human"></span></h2>
+        <h1 id="result"></h1>
 
-    <h2>Computer: <span id="computer"></span></h2>
-    <h2>Jouw keuze: <span id="human"></span></h2>
-    <h2>Uitkomst: <span id="result"></span></h2>
-
-    <p>Huidige Score: <span id="user-score">0</span></p>
-    <p>Hoogste Score: <span id="high-score">0</span></p>
-
-    <button id="steen">Steen</button>
-    <button id="papier">Papier</button>
-    <button id="schaar">Schaar</button>
-
+        <div class="button-container">
+            <button id="steen">Steen</button>
+            <button id="papier">Papier</button>
+            <button id="schaar">Schaar</button>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
